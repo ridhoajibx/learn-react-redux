@@ -1,58 +1,33 @@
-import React, { useEffect, useReducer } from 'react';
-import axios from 'axios'
-
-import { Badge, ListGroup, ListGroupItem } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useMemo } from 'react';
+import ComponentA from './components/ComponentA';
+import ComponentB from './components/ComponentB';
 import './App.css';
 
-const initialState = {
-    loading: true,
-    errors: "",
-    todos: []
-};
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case "SET_DATA":
-            return {
-                loading: false,
-                errors: "",
-                todos: action.payload
-            }
-        case "SET_ERRORS":
-            return {
-                loading: false,
-                errors: "There are no data here",
-                todos: []
-            }
-        default:
-            return initialState;
-    }
-}
-
 function App() {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/todos')
-            .then(res => {
-                console.log(res.data);
-                dispatch({ type: 'SET_DATA', payload: res.data })
-            })
-            .catch(err => {
-                dispatch({ type: 'SET_ERRORS' })
-            })
-    }, []);
+    const [countA, setCountA] = useState(0);
+    const [countB, setCountB] = useState(0);
+    const incrementA = () => {
+        setCountA(countA + 1)
+    }
+    const incrementB = () => {
+        setCountB(countB + 1)
+    }
 
-    const listMarkup = (
-        <ListGroup>
-            { state.todos.map((todo, i) => (
-                <ListGroupItem key={todo.id}>{todo.title} {todo.completed ? (<Badge color="success">Completed</Badge>) : (<Badge color="danger">Uncompleted</Badge>)}</ListGroupItem>
-            ))}
-        </ListGroup>
-    )
+    const memoComponentA = useMemo(()=>{
+        return <ComponentA count={ countA } />
+    }, [countA])
     return (
         <div className="App">
-            { state.loading ? 'Loading' : (state.errors ? state.errors : listMarkup)}
+            App js Count A : { countA }
+            <p>
+                <button onClick={ incrementA }>Increment count A</button>
+            </p>
+            <p>
+                <button onClick={ incrementB }>Increment count B</button>
+            </p>
+            { memoComponentA }
+            <p></p>
+            <ComponentB count={ countB } />
         </div>
     );
 }
