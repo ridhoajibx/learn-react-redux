@@ -1,15 +1,12 @@
 import React from 'react';
 import './App.css';
-import ComponentA from './example/customhookExample/components/ComponentA';
-import ComponentB from './example/customhookExample/components/ComponentB';
+import Form from './example/customhookExample/components/Form';
 
 function App() {
     return (
         <div className="App">
             <p></p>
-            <ComponentA />
-            <p></p>
-            <ComponentB />
+            <Form />
         </div>
     );
 }
