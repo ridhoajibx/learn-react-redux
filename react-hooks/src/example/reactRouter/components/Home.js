@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, CardBody, CardText, CardTitle } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
@@ -21,7 +22,9 @@ const Home = () => {
                 posts.map((post) => (
                     <Card key={post.id} className="shadow p-3 mb-5 bg-white rounded">
                         <CardBody>
-                            <CardTitle tag="h3"> {post.title} </CardTitle>
+                            <CardTitle tag="h3"> 
+                                <Link to={`/${post.id}`}>{post.title}</Link>
+                            </CardTitle>
                             <CardText> {post.body} </CardText>
                         </CardBody>
                     </Card>
