@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './components/Nav';
+import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -10,7 +10,7 @@ import Contact from './components/Contact';
 const App = () => {
     return (
         <Router>
-            <Navbar />
+            <NavBar />
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/about" component={About} />
