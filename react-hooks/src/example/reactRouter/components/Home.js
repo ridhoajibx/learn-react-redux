@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Card, CardBody, CardText, CardTitle } from 'reactstrap';
 
 const Home = () => {
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        (async () => {
+            let res = await axios.get('https://jsonplaceholder.typicode.com/posts')
+            try {
+                setPosts(res.data.slice(0, 10))
+            } catch (error) {
+                console.log(error);
+            }
+        })()
+    }, [])
+
+    const listMarkup = (
+        <div>
+            { posts.length > 0 ?
+                posts.map((post) => (
+                    <Card key={post.id} className="shadow p-3 mb-5 bg-white rounded">
+                        <CardBody>
+                            <CardTitle tag="h3"> {post.title} </CardTitle>
+                            <CardText> {post.body} </CardText>
+                        </CardBody>
+                    </Card>
+                )) :
+                <div>There are no posts</div>
+            }
+        </div>
+    )
     return (
         <div className="container">
             <h4>Home</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis vero magni earum omnis eaque sint quis quibusdam perferendis velit autem quidem repellat facilis sit voluptatum dolores, qui aspernatur dolore quae, hic, labore veritatis? Quas, dignissimos quae, quibusdam placeat qui dicta ipsa consequuntur sint, fuga cum modi voluptates. Esse, dolorum eaque! Nemo, nostrum? Sed excepturi minima officia, iusto atque amet ex necessitatibus delectus error, molestias similique vel. Omnis, exercitationem. Ex hic veniam numquam, molestias recusandae ad velit aut tenetur delectus magnam deserunt magni omnis! Accusantium aliquam fugit blanditiis rem fuga ipsa esse quam magni iste, quibusdam et doloremque explicabo illum perspiciatis.</p>
+            { listMarkup}
         </div>
     );
 }
