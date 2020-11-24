@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
+import auth from '../auth';
 import {
     Collapse,
     Navbar,
@@ -7,9 +8,10 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
+    Button,
 } from 'reactstrap';
 
-const NavBar = () => {
+const NavBar = (props) => {
     // const history = useHistory();
     // useEffect(() => {
     //     setTimeout(() => {
@@ -19,6 +21,19 @@ const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
+
+    const authHandler = () => {
+        if (auth.isAuthenticated()) {
+            auth.logout(()=> {
+                props.history.push('/')
+            })
+        } else {
+            auth.login(()=> {
+                props.history.push('/about')
+            })
+        }
+    }
+    const authText = auth.isAuthenticated() ? 'Logout' : 'Login'
     return (
         <div>
             <Navbar color="light" light expand="md">
@@ -36,6 +51,7 @@ const NavBar = () => {
                             <NavLink className="nav-link" to="/contact">Contact</NavLink>
                         </NavItem>
                     </Nav>
+                    <Button size='sm' color='primary' onClick={authHandler}>{ authText }</Button>
                 </Collapse>
             </Navbar>
         </div>

@@ -8,6 +8,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import PageNotFound from './components/PageNotFound';
 import Post from './components/Post';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
     return (
@@ -15,9 +16,9 @@ const App = () => {
             <NavBar />
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/about" component={About} />
-                <Route path="/contact" component={Contact} />
-                <Route path="/posts/:post_id" component={Post} />
+                <PrivateRoute path="/about" component={About} />
+                <PrivateRoute path="/contact" component={Contact} />
+                <PrivateRoute path="/posts/:post_id" component={Post} />
                 <Route path="*" component={PageNotFound} />
             </Switch>
         </Router>
