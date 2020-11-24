@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useHistory, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 import {
     Collapse,
     Navbar,
@@ -10,12 +10,12 @@ import {
 } from 'reactstrap';
 
 const NavBar = () => {
-    const history = useHistory();
-    useEffect(() => {
-        setTimeout(() => {
-            history.push('/about')
-        }, 2000);
-    }, [history])
+    // const history = useHistory();
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         history.push('/about')
+    //     }, 2000);
+    // }, [history])
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
