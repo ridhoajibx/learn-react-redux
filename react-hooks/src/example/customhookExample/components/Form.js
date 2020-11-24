@@ -1,5 +1,5 @@
 import React from 'react';
-import useInput from '../customHook/useinput';
+import useInput from '../customHook/useInput';
 
 const Form = () => {
     const [name, bindName, clearName] = useInput('')
